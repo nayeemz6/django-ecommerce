@@ -1,0 +1,8 @@
+pillow
+python 3.8
+djongo 3.0.5
+django-allauth
+django-crispy-forms
+django-countries
+stripe
+mongodb

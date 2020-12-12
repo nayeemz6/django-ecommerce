@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Super Market</title>
+
+  {% block title %}
+
+  {% endblock %}
+  {% load cart_tags %}
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+  <!-- MDB icon -->
+  <link rel="icon" href="{% static 'img/favicon.ico'%}" type="image/x-icon">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+  <!-- Google Fonts Roboto -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}">
+  <!-- Material Design Bootstrap -->
+  <link rel="stylesheet" href="{% static 'css/mdb.min.css'%}">
+  <!-- Your custom styles (optional) -->
+  <link rel="stylesheet" href="{% static 'css/style.css'%}">
+</head>
+
+<body>
+  <!--Nav -->
+  <nav class="nav navbar-expand-lg navbar-dark info-color blue-gradient justify-content-end">
+    <div class="d-flex">
+      <ul class="nav ">
+
+        {% if request.user.is_authenticated %}
+        <li class="nav-item ">
+          <a class="nav-link active text-white " href="{% url 'orderview' %}"><i class="fas fa-shopping-cart"></i><span
+              class="badge badge-danger ml-2">{{ request.user|cart_item_count }}</span> </a>
+        </li>
+
+        <li class="nav-item ">
+
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white " id="navbarDropdownMenuLink-4" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-user"></i></a>
+          <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
+
+            <a class="dropdown-item" href="{% url 'profile' %}">My account</a>
+            <a class="dropdown-item" href="{% url 'account_logout' %}">Log out</a>
+            {% else %}
+            <a class="nav-link text-white " href="{% url 'account_login' %}">Login</a>
+            <a class="nav-link text-white " href="{% url 'account_signup' %}">Signup</a>
+          </div>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+  </nav>
+  <!--/.Nav -->
+  <div class="container">
+    <div class="logo text-center pb-2 pt-2">
+      <a href="{% url 'store' %}">
+        <h1>SUPER MARKET</h1>
+      </a>
+    </div>
+    <div class="clearfix"> </div>
+  </div>
+  <!--Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark info-color blue-gradient d-flex ">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
+      aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
+      <ul class="navbar-nav  ">
+        <li class="nav-item">
+          <a class="nav-link text-center " href="/">Home</a>
+        </li>
+        {% for list in object_list %}
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'category' list.category %}">{{ list.get_category_display }}</a>
+        </li>
+
+        {% endfor %}
+
+
+      </ul>
+    </div>
+  </nav>
+  <!--/.Navbar -->
+  <div class="">
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endfor %}
+    {% endif %}
+  </div>
+
+  {% block content %}
+  {% endblock %}
+
+
+  <!-- Footer -->
+  <footer class="page-footer font-small blue blue-gradient pt-4">
+
+    <!-- Footer Links -->
+    <div class="container-fluid text-center text-md-left">
+
+      <!-- Grid row -->
+      <div class="row">
+
+        <!-- Grid column -->
+        <div class="col-md-6 mt-md-0 mt-3 ">
+
+          <!-- Content -->
+          <h5 class="text-uppercase">SUPER MARKET</h5>
+          <p>It is a supermarket website where you can buy product at affortable price</p>
+
+        </div>
+        <!-- Grid column -->
+
+        <hr class="clearfix w-100 d-md-none pb-3">
+
+        <!-- Grid column -->
+        <div class="col-md-3 mb-md-0 mb-3">
+
+          <!-- Links -->
+          <h5 class="text-uppercase">Products</h5>
+
+          <ul class="list-unstyled">
+            <li>
+              <a href="#!">Groceries</a>
+            </li>
+            <li>
+              <a href="#!">Household</a>
+            </li>
+            <li>
+              <a href="#!">Personal Care</a>
+            </li>
+            <li>
+              <a href="#!">Packaged Foods</a>
+            </li>
+            <li>
+              <a href="#!">Beverages</a>
+            </li>
+          </ul>
+
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-3 mb-md-0 mb-3">
+
+          <!-- Links -->
+          <h5 class="text-uppercase">Links</h5>
+
+          <ul class="list-unstyled">
+            <li>
+              <a href="#!">About</a>
+            </li>
+            <li>
+              <a href="#!">Contact</a>
+            </li>
+            <li>
+              <a href="#!">Privacy</a>
+            </li>
+            <li>
+              <a href="#!">Terms</a>
+            </li>
+          </ul>
+
+        </div>
+        <!-- Grid column -->
+
+      </div>
+      <!-- Grid row -->
+
+    </div>
+    <!-- Footer Links -->
+
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">© 2020 Copyright:
+      <a href="{% url 'store' %}">Supermarket</a>
+    </div>
+    <!-- Copyright -->
+
+  </footer>
+  <!-- Footer -->
+  <!--/.footer -->
+  <!-- jQuery -->
+  <script type="text/javascript" src="{% static 'js/jquery.min.js'%}"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="{% static 'js/popper.min.js'%}"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="{% static 'js/bootstrap.min.js'%}"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="{% static 'js/mdb.min.js'%}"></script>
+  <!-- Your custom scripts (optional) -->
+  {% block extra_scripts %}
+  {% endblock extra_scripts %}
+
+
+</body>
+
+</html>

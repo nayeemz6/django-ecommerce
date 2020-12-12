@@ -1,0 +1,58 @@
+{% extends "base.html"%} {% block title %}
+<title>Category</title>
+{% endblock %} {% block content %} {% load static %}
+
+
+<!--Products Section: Block Content-->
+<section>
+    <div class="">
+        <!-- Grid row -->
+        <div class="row mt-5 mb-5 mr-5 ml-5">
+            {% for product in object_list %}
+            <!-- Grid column -->
+            <div class="col-md-3 mb-3">
+                <!-- Card -->
+                <div class="">
+                    <div class="view zoom overlay z-depth-2 rounded">
+                        <img class="img-fluid w-100" src="{{product.image.url}}" alt="Sample" />
+                        <a href="#!">
+                            <div class="mask">
+                                <img class="img-fluid w-100" src="{{product.image.url}}" />
+                                <div class="mask rgba-black-slight"></div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="text-center pt-4">
+                        <h5>{{product.name}}</h5>
+                        <span class="badge badge-pill blue">{{ product.get_availabily_display }}</span>
+
+                        <hr />
+                        {% if product.discount_price %}
+                        <h6 class="mb-3"><del>${{product.price}}</del></h6>
+                        <h6 class="mb-3"> ${{ product.discount_price  }}</h6>
+
+                        {%else %}
+
+                        <h6 class="mb-3">${{product.price}}</h6>
+
+                        {% endif %}
+
+                        <a href="{{product.get_cart_url}}" type="button"
+                            class="btn btn-primary btn-sm mr-1 mb-2 update-cart">
+                            <i class="fas fa-shopping-cart pr-2 update-cart"></i>Add to cart
+                        </a>
+                        <a href="{{product.get_url}}" type="button" class="btn btn-light btn-sm mr-1 mb-2 view-item"><i
+                                class="fas fa-info-circle pr-2"></i>Details</a>
+                    </div>
+                </div>
+                <!-- Card -->
+            </div>
+            <!-- Grid column -->
+            {% endfor %}
+        </div>
+        <!-- Grid row -->
+    </div>
+</section>
+<!--Section: Block Content-->
+{% endblock %}

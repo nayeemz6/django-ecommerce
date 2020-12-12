@@ -1,0 +1,91 @@
+{% extends "base.html"%} {% block title %}
+<title>Profile page</title>
+{% endblock %} {% block content %} {% load static %}
+<main>
+
+    <div class="container">
+        <!-- Grid row -->
+        <div class="row mt-5 mb-5 mr-5 ml-5 justify-content-center">
+
+            <!-- Grid column -->
+            <div class="col-md-3 mb-3">
+                <!-- Card -->
+                <div class="">
+                    <div class="row view zoom overlay z-depth-2 rounded">
+                        <img class="img-fluid w-100" src="{% static 'images/profile.png' %}" alt="Sample" />
+                        <div class="mask">
+                            <img class="img-fluid w-100" src="{% static 'images/profile.png' %}" />
+                            <div class="mask rgba-black-slight"></div>
+                        </div>
+
+                    </div>
+
+                    <div class="text-center pt-4">
+                        <h5>User Name: {{request.user}}</h5>
+                        <hr />
+                        <h6 class="mb-3">Email: {{request.user.email}}</h6>
+
+                    </div>
+                </div>
+                <!-- Card -->
+            </div>
+            <!-- Grid column -->
+        </div>
+        <!-- Grid row -->
+
+        <div class="table-responsive text-nowrap">
+            <h2>Successful Order Summary</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Total Items </th>
+                        <th scope="col">Ordered Date </th>
+                        <th scope="col">Total Price</th>
+
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>
+
+                            {% for orderitem in order.products.all %}
+
+                            {{ orderitem.quantity }} x {{ orderitem.product }}&nbsp;
+
+                            {% endfor %}
+
+
+                        </td>
+
+
+                        <td>
+                            {{ order.ordered_date }}
+                        </td>
+
+                        <td>{{ order.get_total }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan='5'>You have not any successful purchased yet</td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">
+                            <a class='btn btn-primary float-right' href='/'>Continue shopping</a>
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+</main>
+
+{% endblock content %}
